@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daily Sphere Number</title>
+  <style>
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: #ffffff;
+      color: #000000;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 30px 20px 40px;
+    }
+
+    .title-area {
+      text-align: center;
+      margin-top: 4px;
+      margin-bottom: 70px;
+      line-height: 1.35;
+    }
+
+    .main-title {
+      font-size: clamp(18px, 2.2vw, 22px);
+      font-weight: 600;
+    }
+
+    .sub-title {
+      font-size: clamp(17px, 2vw, 21px);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .sphere-wrap {
+      width: min(72vw, 620px);
+      height: min(34vw, 335px);
+      min-height: 210px;
+      border: 11px solid #769737;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      background: #ffffff;
+    }
+
+    #sphereNumber {
+      font-size: clamp(20px, 2.3vw, 24px);
+      font-weight: 400;
+      letter-spacing: 0.2px;
+    }
+
+    .date-note {
+      margin-top: 28px;
+      font-size: 13px;
+      color: #666666;
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      .page { padding-top: 24px; }
+      .title-area { margin-bottom: 55px; }
+      .sphere-wrap {
+        width: 88vw;
+        height: 52vw;
+        min-height: 190px;
+        border-width: 9px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="title-area">
+      <div class="main-title">Grigori Grabovoi</div>
+      <div class="sub-title">Teaching On Salvation And Harmonious Development</div>
+    </section>
+
+    <section class="sphere-wrap" aria-label="Daily sphere number">
+      <div id="sphereNumber">Loading...</div>
+    </section>
+
+    <div class="date-note" id="dateNote"></div>
+  </main>
+
+  <script>
+    const sphereNumbers = {
+  "1": "845132489",
+  "2": "849995120",
+  "3": "421954321",
+  "4": "715043769",
+  "5": "194321054",
+  "6": "194321099",
+  "7": "991843288",
+  "8": "984301267",
+  "9": "918921452",
+  "10": "894153210",
+  "11": "561432001",
+  "12": "485321489",
+  "13": "154321915",
+  "14": "999888776",
+  "15": "532145891",
+  "16": "123567091",
+  "17": "891000111",
+  "18": "185321945",
+  "19": "158431985",
+  "20": "891543219",
+  "21": "589148542",
+  "22": "198516789",
+  "23": "581974321",
+  "24": "189543210",
+  "25": "012459999",
+  "26": "485617891",
+  "27": "185431201",
+  "28": "195814210",
+  "29": "512942180",
+  "30": "185219351",
+  "31": "185214321"
+};
+
+    function getKolkataDateParts() {
+      const parts = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Kolkata',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      }).formatToParts(new Date());
+      const obj = Object.fromEntries(parts.map(p => [p.type, p.value]));
+      return {
+        day: Number(obj.day),
+        display: `${obj.day} ${obj.month} ${obj.year}`
+      };
+    }
+
+    function renderSphere() {
+      const dateInfo = getKolkataDateParts();
+      const sphere = sphereNumbers[String(dateInfo.day)] || 'No sphere number found';
+      document.getElementById('sphereNumber').textContent = sphere;
+      document.getElementById('dateNote').textContent = `Day ${dateInfo.day} • ${dateInfo.display} • Updates automatically using Asia/Kolkata time`;
+    }
+
+    renderSphere();
+    setInterval(renderSphere, 60000);
+  </script>
+</body>
+</html>
