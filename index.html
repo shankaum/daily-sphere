@@ -70,7 +70,6 @@
       const dateInfo = getKolkataDateParts();
       const sphere = sphereNumbers[String(dateInfo.day)] || 'No sphere number found';
       document.getElementById('sphereNumber').textContent = sphere;
-      document.getElementById('dateNote').textContent = `Day ${dateInfo.day} • ${dateInfo.display} • Updates automatically using Asia/Kolkata time`;
     }
     renderSphere();
     setInterval(renderSphere, 60000);
